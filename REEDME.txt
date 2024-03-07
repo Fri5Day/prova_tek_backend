@@ -1,0 +1,29 @@
+ -----Comandos npm utilizados-----
+|        npm init -y              |
+|        npm i cors               |
+|        npm i express            |
+|        npm i nodemon - D        |
+ ---------------------------------
+
+ ---------------------------------------------------------------
+|   Banco de dados utilizado: MySql                             |
+|   .env: DATABASE_URL="mysql://root:root@localhost:3306/prova" |
+|   OBS: No MySql deve conter um um banco com nome de 'prova'   |
+ ---------------------------------------------------------------
+
+ -----------------------------------------------------------------------
+|   Utilizado o ORM Prisma.                                              |
+|   Executar o comando: npx prisma migrate dev --name init para criar as |
+|   tabelas do banco de dados.                                           |
+ ------------------------------------------------------------------------
+
+ ---------------------------------------------------------------
+|   iniciar o servidor: npm run dev.                            |
+|   OBS: O package.json deve conter as seguintes configurações. |
+|   "type": "module",                                           |
+|   "scripts": {                                                |
+|       "dev": "nodemon src/server.js"                          |        
+|   },                                                          |    
+ ---------------------------------------------------------------
+
+
