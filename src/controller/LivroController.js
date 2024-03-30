@@ -3,7 +3,7 @@ import { prisma } from "../database/prisma.js";
 
 export const findAllLivro = async (req, res) => {
     try {
-        const livro = await prisma.livro.findMany({include: {categoria: true} });
+        const livro = await prisma.livro.findMany({ include: { categoria: true } });
         return res.json(livro);
     } catch (error) {
         console.error(error);
@@ -53,7 +53,7 @@ export const updateLivro = async (req, res) => {
 
         const livro = await prisma.livro.update({
             where: { id: Number(id) },
-            data: { titulo, autor, descricao, categoriaId, anoPublicacao, copias, copiasDisponiveis }
+            data: { titulo, autor, descricao, categoriaId, anoPublicacao, copias: Number(copias), copiasDisponiveis: Number(copiasDisponiveis) }
         });
         res.json(livro);
     } catch (error) {
@@ -81,9 +81,9 @@ export const alugarLivro = async (req, res) => {
                 data: { copiasDisponiveis: livro.copiasDisponiveis - quantidade }
             });
 
-            return res.status(200).json({message: "Quantidade atualizada com sucesso."})
+            return res.status(200).json({ message: "Quantidade atualizada com sucesso." })
         }
-        return res.status(400).json({message: "A quantidade não pode ser maior que o número de cópias disponiveis."})
+        return res.status(400).json({ message: "A quantidade não pode ser maior que o número de cópias disponiveis." })
     } catch (error) {
         console.error(error);
         res.status(500).json({ error });
@@ -109,9 +109,9 @@ export const devolverLivro = async (req, res) => {
                 data: { copiasDisponiveis: livro.copiasDisponiveis + Number(quantidade) }
             });
 
-            return res.status(200).json({message: "Quantidade atualizada com sucesso."})
+            return res.status(200).json({ message: "Quantidade atualizada com sucesso." })
         }
-        return res.status(400).json({message: "As cópias disponiveis não podem ser maior que o número de cópias."})
+        return res.status(400).json({ message: "As cópias disponiveis não podem ser maior que o número de cópias." })
     } catch (error) {
         console.error(error);
         res.status(500).json({ error });
