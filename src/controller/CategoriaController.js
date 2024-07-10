@@ -1,6 +1,5 @@
 import { prisma } from "../database/prisma.js";
 
-
 export const findAllCategoria = async (req, res) => {
     try {
         const categoria = await prisma.categoria.findMany();
@@ -54,6 +53,15 @@ export const updateCategoria = async (req, res) => {
 export const deleteCategoria = async (req, res) => {
     try {
         const { id } = req.params;
+
+        // Verifica se a categoria está associada a algum livro
+        const livros = await prisma.livro.findMany({
+            where: { categoriaId: Number(id) }
+        });
+
+        if (livros.length > 0) {
+            return res.status(400).json({ message: "Não é possível deletar a categoria. Ela está associada a um ou mais livros." });
+        }
         const categoria = await prisma.categoria.delete({
             where: { id: Number(id) }
         });
